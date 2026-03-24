@@ -1,0 +1,25 @@
+{
+  "name": "playwright-js-enterprise-automation",
+  "version": "1.0.0",
+  "description": "Enterprise level automation framework using Playwright JS covering UI, API, Storage session, Network interception, File handling, POM, CI/CD integration.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naveenreddy-star/Playwright-JS-Enterprise-Automation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naveenreddy-star/Playwright-JS-Enterprise-Automation/issues"
+  },
+  "homepage": "https://github.com/naveenreddy-star/Playwright-JS-Enterprise-Automation#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.1",
+    "@types/node": "^25.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
+  }
+}
