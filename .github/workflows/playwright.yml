@@ -1,5 +1,8 @@
 name: Playwright Tests
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches: [ main, master ]
@@ -34,14 +37,13 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    # ✅ Set BASE_URL for CI (same as .env)
     - name: Set BASE_URL
       run: echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
 
     - name: Run Playwright tests
       run: npx playwright test
 
-    - name: Upload Playwright Report
+    - name: Upload Report
       uses: actions/upload-artifact@v4
       if: always()
       with:
