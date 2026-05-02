@@ -18,9 +18,6 @@ test('login with valid credentials', async ({ browser }) => {
     await loginpage1.enterUserNameAndPassword(ENV.USERNAME,ENV.PASSWORD);
     await loginpage.clickOnLoginButton()
      await loginpage1.clickOnLoginButton()
-    // await page.goto('/');
-    // await page.locator('//input[@name="username"]').fill(ENV.USERNAME)
-    // await page.locator('//input[@name="password"]').fill(ENV.PASSWORD)y
-    // await page.locator('//button').click();
+   
 
 })
