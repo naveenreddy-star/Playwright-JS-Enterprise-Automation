@@ -1,26 +1,49 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
       with:
-        node-version: lts/*
+        node-version: '18'
+
+    - name: Cache node modules
+      uses: actions/cache@v4
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+
+    # ✅ Set BASE_URL for CI (same as .env)
+    - name: Set BASE_URL
+      run: echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
+
     - name: Run Playwright tests
       run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
+
+    - name: Upload Playwright Report
+      uses: actions/upload-artifact@v4
+      if: always()
       with:
         name: playwright-report
         path: playwright-report/
