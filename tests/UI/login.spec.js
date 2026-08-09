@@ -32,7 +32,7 @@ test.describe('Verify Login Functionalities', () => {
         await loginpage.navigateToLoginPage();
 
         await loginpage.enterUserNameAndPassword(
-            process.env.LOGINUSERNAME,
+            process.env.USERNAME,
             process.env.PASSWORD
         );
 
@@ -46,7 +46,7 @@ test.describe('Verify Login Functionalities', () => {
         await loginpage.navigateToLoginPage();
 
         await loginpage.enterUserNameAndPassword(
-            process.env.LOGINUSERNAME,
+            process.env.USERNAME,
             process.env.PASSWORD
         );
 
