@@ -4,6 +4,11 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
+  workflow_dispatch:
+  # Run every day at 9:30 AM IST
+  schedule:
+    - cron: '30 9 * * *'
+      timezone: 'Asia/Kolkata'
   push:
     branches: [ main, master ]
   pull_request:
