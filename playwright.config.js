@@ -1,8 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import { trace } from 'node:console';
-import { env } from 'node:process';
-// import { ENV } from './config/envConfig'
+require('dotenv').config();
 
 /**
  * Read environment variables from file.
@@ -16,39 +14,58 @@ import { env } from 'node:process';
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
+  timeout:90000,
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: 2,
+  retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: 1 ,
-    /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html', { outputfloder: 'my-report/playwright-report' }]],
+  workers: process.env.CI ? 1 : undefined,
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  reporter: [
+    ['html', {
+        outputFolder: 'playwright-report',
+        open: 'always'
+    }]
+ ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
+    baseURL: process.env.BASE_URL,
     // baseURL: 'http://localhost:3000',
-    baseURL: env.BASE_URL,
-    video: 'retain-on-failure',
     trace: 'retain-on-failure',
-    headless: true,
+
     screenshot: 'only-on-failure',
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-  },
-  
+    video: 'retain-on-failure',
 
+    headless: true,
+
+    viewport: {
+      width: 1440,
+      height: 900
+    }
+  },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+      name: 'setup',
 
+      testMatch: /auth.setup.js/
+    },
+    {
+      name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome'], storageState:
+          'auth/application-auth.json'
+      },
+
+      dependencies: ['setup']
+    },
     // {
     //   name: 'firefox',
     //   use: { ...devices['Desktop Firefox'] },

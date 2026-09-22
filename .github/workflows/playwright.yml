@@ -45,7 +45,7 @@ jobs:
     - name: Set Environment Variables
       run: |
         echo "BASE_URL=${{ secrets.BASE_URL }}" >> $GITHUB_ENV
-        echo "USERNAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
+        echo "USER_NAME=${{ secrets.USERNAME }}" >> $GITHUB_ENV
         echo "PASSWORD=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
 
     - name: Set BASE_URL
