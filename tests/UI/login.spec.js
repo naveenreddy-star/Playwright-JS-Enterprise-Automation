@@ -55,6 +55,8 @@ test.describe('Verify Login Functionalities', () => {
         await loginpage.logout();
 
         await expect(page).toHaveURL(/login/);
+
+        //made this change to commit 
     });
 
 });
